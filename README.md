@@ -1,1 +1,1 @@
-Documentation: (https://PedanticCoder.github.io/print_ip/)
+Documentation: (./docs/index.md)
