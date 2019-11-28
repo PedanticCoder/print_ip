@@ -11,10 +11,10 @@ addons:
     - doxygen
     - graphviz
     update: true
-  env:
-  - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+env:
+- MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 before_install:
-  - eval "${MATRIX_EVAL}"
+- eval "${MATRIX_EVAL}"
 script:
 - cmake .
 - cmake --build .
@@ -33,4 +33,4 @@ deploy:
   local_dir: ./docs/html
   target_branch: gh-pages
   on:
-  branch: master
+   branch: master
