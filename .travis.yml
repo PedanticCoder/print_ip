@@ -3,7 +3,10 @@ language: cpp
 compiler: clang
 addons:
   apt:
+    sources:
+    - llvm-toolchain-trusty-5.0
     packages:
+    - clang-5.0
     - libboost-test-dev
     - doxygen
     - graphviz
