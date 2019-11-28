@@ -1,3 +1,8 @@
+/*!
+ *    @file test_version.cpp
+ *    @brief Проверка корректности номера версии патча проекта
+ */
+
 #define BOOST_TEST_MODULE print_ip_test_module
 
 #include "lib.h"
