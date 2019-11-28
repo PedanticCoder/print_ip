@@ -8,6 +8,8 @@ addons:
     - doxygen
     - graphviz
     update: true
+  env:
+  - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 script:
 - cmake .
 - cmake --build .
