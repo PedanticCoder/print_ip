@@ -11,6 +11,7 @@
 #include <vector>
 #include <list>
 #include <string>
+#include <tuple>
 
 /*!
  *    @brief Метафункция для печати ip-адреса, представленного целочисленным типом 
@@ -72,6 +73,56 @@ print_ip(const T& ip)
 void print_ip(const std::string& ip)
 {
     std::cout << ip << std::endl; 
+}
+
+/*!
+ *	@brief Частичные специализации метафункции, проверяющей одинаковы ли типы, содержащиеся в кортеже
+ *	@param T - первый параметр метафункции, содержащий определенный тип элемента кортежа
+ *	@param Args... - набор параметров, содержащих остальные типы элементов кортежа
+ */ 
+template<typename T, typename... Args>
+struct areSameTupleTypes { };
+
+template<typename T>
+struct areSameTupleTypes<T> : std::true_type {};
+
+template<typename T, typename U, typename... Args>
+struct areSameTupleTypes<T, U, Args...>
+{
+	static const bool value = areSameTupleTypes<U, Args...>::value && std::is_same_v<T, U>;
+};
+
+template<size_t cur_idx, size_t tuple_size, typename... Args>
+struct printHelper
+{
+    void operator()(const std::tuple<Args...>& ip_parts)
+    {
+        if (cur_idx != 0) std::cout << ".";
+        
+        std::cout << std::get<cur_idx>(ip_parts);
+        printHelper<cur_idx + 1, tuple_size, Args...>{}(ip_parts);
+    }
+};
+
+template<size_t tuple_size, typename... Args>
+struct printHelper<tuple_size, tuple_size, Args...>
+{
+    void operator()(const std::tuple<Args...>& ip_parts)
+    {
+        std::cout << std::endl;
+    }
+};
+
+template<typename... Args>
+std::enable_if_t<
+	areSameTupleTypes<Args...>::value,
+	void>
+print_ip(const std::tuple<Args...>& ip)
+{
+	printHelper<
+	0,
+	std::tuple_size_v<std::remove_reference_t<decltype(ip)>>,
+	Args...> {} (ip);	 
 }
 
 #endif // PRINT_H
