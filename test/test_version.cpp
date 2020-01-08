@@ -67,6 +67,9 @@ BOOST_AUTO_TEST_CASE(print_ip_output_checking)
 
 	print_ip(std::list<int>{132, 54, 76, 23, 354});
 	BOOST_CHECK(output.is_equal("132.54.76.23.354\n"));
+
+	print_ip(std::make_tuple(192, 168, 30, 45));
+	BOOST_CHECK(output.is_equal("192.168.30.45\n"));
     }
 }
 
