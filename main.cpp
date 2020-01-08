@@ -4,6 +4,7 @@
 #include <vector>
 #include <list>
 #include <string>
+#include <tuple>
 
 /*!
  *    @file main.cpp
@@ -28,6 +29,7 @@ int main()
     print_ip(std::string("127.0.0.1"));
     print_ip(std::vector<int>{192, 168, 20, 10});
     print_ip(std::list<int>{132, 54, 76, 23, 354});
+    print_ip(std::make_tuple(192, 168, 33, 45));
     
     return 0;
 }
